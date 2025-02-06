@@ -10,16 +10,16 @@ import { tap } from 'rxjs';
 export class LoginService {
   private apiUrl = environment.apiUrl + "/auth";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }  
 
   login(login: string, password: string){
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
       tap((value) => {
-        sessionStorage.setItem("auth-token", value.token)
-        sessionStorage.setItem("username", value.login)
+        document.cookie = `auth-token=${value.token}; path=/;`; // Armazenamento inseguro em cookie
+        sessionStorage.setItem("username", value.login);
       })
-    )
-  }
+    );
+  }  
 
   signup(name: string, login: string, password: string, role: string){
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { name, login, password, role }).pipe(

@@ -12,13 +12,21 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const authToken = sessionStorage.getItem('auth-token');
-
-    if (authToken) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
+      const authToken = this.getCookie("auth-token");
+  
+      if (authToken) {
+        return true;
+      } else {
+        this.router.navigate(['/login']);
+        return false;
+      }
     }
-  }
+  
+    // Função para pegar o valor de um cookie pelo nome
+    getCookie(name: string): string | null {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+      return null;
+    }  
 }
