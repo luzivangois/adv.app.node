@@ -27,11 +27,6 @@ getUsuarioById(idUsuario: string): Observable<any> {
    return this.http.get(`${this.apiUrl}/userid/${idUsuario}`, { headers });
 }
 
-// deleteUsuarioById(idUsuario: string): Observable<any> {
-//    const headers = new HttpHeaders().set('Authorization', this.getToken());
-//    return this.http.delete(`${this.apiUrl}/deluser/${idUsuario}`, { headers });
-// }
-
 deleteUsuarioById(idUsuario: string): Observable<any> {
    const token = this.getCookie("auth-token"); // Função para pegar o token do cookie
    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
