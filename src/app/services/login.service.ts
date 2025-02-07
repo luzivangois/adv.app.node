@@ -13,13 +13,16 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }  
 
   login(login: string, password: string) {
-    return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
-      tap((value) => {    
-        // Armazenando o nome de usuário no sessionStorage (pode ser acessado por qualquer script no mesmo domínio)
-        sessionStorage.setItem("username", value.login);
-      })
-    );
-  }  
+  return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
+    tap((value) => {
+      // Armazenando o token em um cookie vulnerável
+      document.cookie = `auth-token=${value.token}; path=/;`;
+      
+      // Armazenando o nome de usuário no sessionStorage (pode ser acessado por qualquer script no mesmo domínio)
+      sessionStorage.setItem("username", value.login);
+    })
+  );
+}
 
   signup(name: string, login: string, password: string, role: string){
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { name, login, password, role }).pipe(
