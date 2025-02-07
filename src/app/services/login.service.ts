@@ -15,7 +15,7 @@ export class LoginService {
   login(login: string, password: string){
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
       tap((value) => {
-        document.cookie = `auth-token=${value.token}; path=/;`; // Armazenamento inseguro em cookie
+        document.cookie = `auth-token=${value.token}; path=/; SameSite=none; Secure; HttpOnly=false`; // Armazenamento inseguro em cookie
         sessionStorage.setItem("username", value.login);
       })
     );
