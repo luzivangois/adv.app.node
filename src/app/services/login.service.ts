@@ -14,10 +14,7 @@ export class LoginService {
 
   login(login: string, password: string) {
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
-      tap((value) => {
-        // Armazenando o token em um cookie vulnerável
-        document.cookie = `auth-token=${value.token}; path=/;`;
-        
+      tap((value) => {    
         // Armazenando o nome de usuário no sessionStorage (pode ser acessado por qualquer script no mesmo domínio)
         sessionStorage.setItem("username", value.login);
       })
