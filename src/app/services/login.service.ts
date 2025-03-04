@@ -15,10 +15,7 @@ export class LoginService {
   login(login: string, password: string) {
   return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { login, password }).pipe(
     tap((value) => {
-      // Armazenando o token em um cookie vulnerável
-      document.cookie = `auth-token=${value.token}; path=/;`;
-      
-      // Armazenando o nome de usuário no sessionStorage (pode ser acessado por qualquer script no mesmo domínio)
+      document.cookie = `auth-token=${value.token}; path=/;`;      
       sessionStorage.setItem("username", value.login);
     })
   );
@@ -27,7 +24,7 @@ export class LoginService {
   signup(name: string, login: string, password: string, role: string){
     return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { name, login, password, role }).pipe(
       tap((value) => {
-        sessionStorage.setItem("auth-token", value.token)
+        //sessionStorage.setItem("auth-token", value.token)
         sessionStorage.setItem("username", value.login)
       })
     )

@@ -46,12 +46,9 @@ constructor(
   })
 }
 
-getToken(): string {   
-  return sessionStorage.getItem('auth-token') as string;
-}
-
  submit(){
-  const headers = new HttpHeaders().set('Authorization', this.getToken());
+  const token = this.getCookie("auth-token");
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   const params = new HttpParams().set('name', this.fileNameForm.value.filename)
   
   this.http.get(this.apiUrl, { params: params, headers, responseType: 'text' })
@@ -79,4 +76,11 @@ getToken(): string {
 backFilesPanel(){
   this.router.navigate(["files-panel"])
 }
+
+getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+  }
 }

@@ -11,30 +11,29 @@ export class UsersService {
    private apiUrl = environment.apiUrl + "/auth"; 
 
  constructor(private http: HttpClient) { }
-
-getToken(): string {   
-   return sessionStorage.getItem('auth-token') as string;
-}
+ 
 
 getAllUsers(): Observable<any> {
-   const token = this.getCookie("auth-token"); // Função para pegar o token do cookie
+   const token = this.getCookie("auth-token");
    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
    return this.http.get(`${this.apiUrl}/allusers`, { headers });
 }
 
 getUsuarioById(idUsuario: string): Observable<any> {
-   const headers = new HttpHeaders().set('Authorization', this.getToken());
+   const token = this.getCookie("auth-token");
+   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
    return this.http.get(`${this.apiUrl}/userid/${idUsuario}`, { headers });
 }
 
 deleteUsuarioById(idUsuario: string): Observable<any> {
-   const token = this.getCookie("auth-token"); // Função para pegar o token do cookie
+   const token = this.getCookie("auth-token");
    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
    return this.http.delete(`${this.apiUrl}/deluser/${idUsuario}`, { headers });
  }
 
 updatePass(id: string, password: string): Observable<any> {
-   const headers = new HttpHeaders().set('Authorization', this.getToken());
+   const token = this.getCookie("auth-token");
+   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
    const body = password
    return this.http.put(`${this.apiUrl}/updatepass/${id}`, body, { headers });
    }

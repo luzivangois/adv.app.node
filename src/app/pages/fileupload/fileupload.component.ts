@@ -37,7 +37,7 @@ onUpload() {
   formData.append('file', this.selectedFile);
   formData.append('name', this.fileName);
 
-  const token = sessionStorage.getItem('auth-token');
+  const token = this.getCookie("auth-token");
 
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
@@ -63,4 +63,11 @@ onUpload() {
 backFilePanel() {
   this.router.navigate(["files-panel"])
 }
+
+getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+  }
 }
