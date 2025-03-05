@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
       }
     }
   
-    // Função para pegar o valor de um cookie pelo nome
     getCookie(name: string): string | null {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);

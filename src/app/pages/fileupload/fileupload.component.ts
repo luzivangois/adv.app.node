@@ -20,7 +20,7 @@ export class FileUploadComponent {
  fileName: string = '';
  selectedFile!: File;
 
- private apiUrl = environment.apiUrl + "/archive/sendfile"; 
+ private apiUrl = environment.apiUrl + "/api/sendfile"; 
 
  constructor(private http: HttpClient, private router: Router, private toastService: ToastrService) {}
 
