@@ -33,7 +33,7 @@ export class ReadFileComponent {
   fileNameForm: FormGroup<FileNameForm>;
   content = '';
 
- private apiUrl = environment.apiUrl + "/api/name"; 
+ private apiUrl = environment.apiUrl + "/api/read"; 
 
 constructor(
   private router: Router,
