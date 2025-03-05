@@ -34,7 +34,7 @@ deleteUsuarioById(idUsuario: string): Observable<any> {
 updatePass(id: string, password: string): Observable<any> {
    const token = this.getCookie("auth-token");
    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-   const body = password
+   const body = { password: password }
    return this.http.put(`${this.apiUrl}/updatepass/${id}`, body, { headers });
    }
 

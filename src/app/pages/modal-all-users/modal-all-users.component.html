@@ -4,11 +4,11 @@
         <mat-dialog-content class="dados">
             <p>
                 <span class="label">ID: </span>
-                <span class="value.id">{{ user.id }}</span>
+                <span class="value.id">{{ user._id }}</span>
             </p>
             <p>
                 <span class="label">Perfil: </span>
-                <span class="value">{{ user.role }}</span>
+                <span class="value">{{ user.isAdmin ? 'ADMIN' : 'USER'  }}</span>
             </p>
             <p>
                 <span class="label">Nome: </span>
